@@ -23,16 +23,13 @@
 						textHTML = textHTML + '<option value = "' + nextValues[i] + '">' + nextValues[i] + '</option>';
 					}
 					nextActor.innerHTML = textHTML;
-				}).addQueue(chainTarget1, 'change', function(currentActor, nextActor){
-					console.log(111111);
+				}, 'mammal').addQueue(chainTarget1, 'change', function(currentActor, nextActor){
 					var valueSet = {
 						human : ['white', 'black', 'yellow']
 						, cat : ['tiger', 'cheetah', 'leopard']
 						, dog : ['lion', 'terrior', 'retriever']
 						, lizard : ['komodo', 'bluetongue']
 					}
-
-					console.log(currentActor.value);
 
 					var textHTML = '';
 					var nextValues = valueSet[currentActor.value];
@@ -42,7 +39,6 @@
 					}
 					nextActor.innerHTML = textHTML;
 				}).addQueue(chainTarget2, null, null).closeQueue();
-				
 			}, false);
 		</script>
 	</head>
