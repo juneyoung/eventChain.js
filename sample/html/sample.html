@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Event Chainer js sample</title>
+		<script src='../javascript/eventq.js'></script>
+		<script>
+			window.addEventListener('load', function(){
+				var chainTrigger = document.querySelector('[select-1]');
+				var chainTarget1 = document.querySelector('[select-2]');
+				var chainTarget2 = document.querySelector('[select-3]');
+
+				EQ.addQueue(chainTrigger, 'change', function(currentActor, nextActor){	//변경을 받을 엘리먼트 전달  
+					var valueSet = {
+						mammal : ['human', 'cat', 'dog']
+						, reptile : ['lizard', 'turtle', 'snake']
+						, bird : ['sparrow', 'eagle', 'hawk']
+					}
+
+					var textHTML = '';
+					var nextValues = valueSet[currentActor.value];
+					for(var i  = 0; i < nextValues.length; i++) {
+						textHTML = textHTML + '<option value = "' + nextValues[i] + '">' + nextValues[i] + '</option>';
+					}
+					nextActor.innerHTML = textHTML;
+				}).addQueue(chainTarget1, 'change', function(currentActor, nextActor){
+					console.log(111111);
+					var valueSet = {
+						human : ['white', 'black', 'yellow']
+						, cat : ['tiger', 'cheetah', 'leopard']
+						, dog : ['lion', 'terrior', 'retriever']
+						, lizard : ['komodo', 'bluetongue']
+					}
+
+					console.log(currentActor.value);
+
+					var textHTML = '';
+					var nextValues = valueSet[currentActor.value];
+					if(!nextValues) return;
+					for(var i  = 0; i < nextValues.length; i++) {
+						textHTML = textHTML + '<option value = "' + nextValues[i] + '">' + nextValues[i] + '</option>';
+					}
+					nextActor.innerHTML = textHTML;
+				}).addQueue(chainTarget2, null, null).closeQueue();
+				
+			}, false);
+		</script>
+	</head>
+	<nav>
+		<div>
+			Select1
+			<select select-1>
+				<option value='mammal'>mammal</option>
+				<option value='reptile'>reptile</option>
+				<option value='bird'>bird</option>
+			</select>
+		</div>
+
+		<div>
+			Select1
+			<select select-2>
+			</select>
+		</div>
+
+		<div>
+			Select2
+			<select select-3>
+			</select>
+		</div>
+	</nav>
+</html>
